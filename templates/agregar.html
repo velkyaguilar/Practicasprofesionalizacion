@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+<h2>Agregar Mascota</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input type="text" name="nombre" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Especie</label>
+        <input type="text" name="especie" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Edad</label>
+        <input type="number" name="edad" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Agregar</button>
+</form>
+<a href="{{ url_for('mascotas_index') }}" class="btn btn-primary mt-3">Volver a Listar</a>
+{% endblock %}
+
+
+
+

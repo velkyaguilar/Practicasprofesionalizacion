@@ -1,0 +1,69 @@
+{% extends 'badmin.html' %}
+{% block title %} Panel de Administrador{% endblock %}
+
+{% block body %}
+
+<div class="container p-5 mt-3">
+    <h2 class="text-center alert alert-danger py-4">Sistema de Gestión de Adopciones</h2>
+
+<div class="row text-center">
+    <!-- Perfil del Adoptante -->
+    <div class="col-md-4 mb-3">
+        <div class="card" style="background: linear-gradient(180deg, #355e3b, #7a9f7a, #f1eeda);">
+            <div class="row g-0">
+                <div class="col-md-8">
+                    <div class="card-body text-white">
+                        <h5 class="card-title">Perfil del Adoptante</h5>
+                        <a href="{{ url_for('registro_adoptante')}}" class="btn btn-outline-success">Ver Detalles</a>
+                    </div>
+                </div>
+                <div class="col-md-4 align-content-center">
+                    <img src="{{ url_for('static', filename='img/personas.png') }}" 
+                         class="img-fluid rounded-start" alt="Adoptante">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registrar Perros -->
+    <div class="col-md-4 mb-3">
+        <div class="card" style="background: linear-gradient(180deg, #042bf1,#367cd9,#ffffff);">
+            <div class="row g-0">
+                <div class="col-md-8">
+                    <div class="card-body text-white">
+                        <h5 class="card-title">Registrar Perros</h5>
+                        <a href="{{ url_for('registro_perro') }}" class="btn btn-outline-success">Ver Detalles</a>
+                    </div>
+                </div>
+                <div class="col-md-4 align-content-center">
+                    <a href="{{ url_for('registro_perro') }}">
+                        <img src="{{ url_for('static', filename='img/registrarse.png') }}" 
+                             class="img-fluid rounded-start" alt="Registrar Perro">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Perros en Adopción -->
+    <div class="col-md-4 mb-3">
+        <div class="card" style="background: linear-gradient(180deg, #0b235c,#3d85a9,#e0f7ff);">
+            <div class="row g-0">
+                <div class="col-md-8">
+                    <div class="card-body text-white">
+                        <h5 class="card-title">Perros en Adopción</h5>
+                        <a href="{{ url_for('lista_perros') }}" class="btn btn-outline-success">Ver Detalles</a>
+                    </div>
+                </div>
+                <div class="col-md-4 align-content-center">
+                    <img src="{{ url_for('static', filename='img/perritos.png') }}" 
+                         class="img-fluid rounded-start" alt="Perros en Adopción">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

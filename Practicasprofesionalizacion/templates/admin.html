@@ -1,0 +1,38 @@
+{% extends 'badmin.html' %}
+{% block title %} Panel de Administrador{% endblock %}
+
+{% block body %}
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Usuarios</h5>
+                <p class="card-text">Agregar, editar o eliminar usuarios.</p>
+                <a href="#" class="btn btn-primary">Ir a Usuarios</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Reportes</h5>
+                <p class="card-text">Ver estadísticas y reportes de las adopciones de mascotas.</p>
+                <a href="#" class="btn btn-primary">Ver Reportes</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Vista de Mascota</h5>
+                <p class="card-text">Accede a la información y detalles de la mascota.</p>
+                <a href="#" class="btn btn-primary">Ver Mascota</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

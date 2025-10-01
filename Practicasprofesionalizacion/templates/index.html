@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Carrusel -->
+  <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='img/imagen3.png') }}" 
+             class="d-block w-100"
+             alt="Pekinés pequeño sentado en un cojín, ambiente cálido con juguetes alrededor"
+             style="height:500px; object-fit:cover;">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/imagen2.jpg') }}" 
+             class="d-block w-100"
+             alt="Shih Tzu adorable"
+             style="height:500px; object-fit:cover;">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/imagen4.jpg') }}" 
+             class="d-block w-100"
+             alt="Pomerania alegre"
+             style="height:500px; object-fit:cover;">
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+
+  <!-- Sección de información sobre Perros pequeños -->
+  <section class="container my-5">
+    <h2 class="text-center mb-4">Información sobre Perros</h2>
+    <p class="text-center mb-5">
+      “La lealtad más pura tiene cuatro patas y una cola que nunca deja de moverse.” 🐾💙
+    </p>
+
+    <div class="row g-4">
+      <!-- Pekinés -->
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100 text-center">
+          <img src="{{ url_for('static', filename='img/imagen4.jpg') }}" 
+               class="card-img-top img-fluid"
+               alt="Pekinés"
+               style="height:250px; width:100%; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title">Perro Pekinés</h5>
+            <p class="card-text">
+              El Pekinés es un perro pequeño, elegante y muy valiente. Ideal para compañía en hogares tranquilos. 🐾👑
+            </p>
+            <!-- Usar button y un id SIN acentos -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPekines">
+              Ver más
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shih Tzu -->
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100 text-center">
+          <img src="{{ url_for('static', filename='img/imagen1.jpg') }}" 
+               class="card-img-top img-fluid"
+               alt="Shih Tzu"
+               style="height:250px; width:100%; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title">Shih Tzu</h5>
+            <p class="card-text">
+              Encantador y peludo, muy sociable y juguetón. Perfecto para familias. 🐾💖
+            </p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalShihTzu">
+              Ver más
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pomerania -->
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100 text-center">
+          <img src="{{ url_for('static', filename='img/imagen2.jpg') }}" 
+               class="card-img-top img-fluid"
+               alt="Pomerania"
+               style="height:250px; width:100%; object-fit:cover;">
+          <div class="card-body">
+            <h5 class="card-title">Pomerania</h5>
+            <p class="card-text">
+              Activo, inteligente y esponjoso. Ideal para quienes buscan energía y ternura. 🐾✨
+            </p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPomerania">
+              Ver más
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODALES -->
+  <!-- Pekinés -->
+  <div class="modal fade" id="modalPekines" tabindex="-1" aria-labelledby="modalPekinesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modalPekinesLabel" class="modal-title">Perro Pekinés</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body text-start">
+          <ul>
+            <li>Origen: China. “Perro de la realeza”.</li>
+            <li>Peso: 3–6 kg. Longevidad: 12–15 años.</li>
+            <li>Carácter: leal, valiente, algo territorial.</li>
+            <li>Cuidados: pelaje largo—cepillado diario; ojos y pliegues faciales.</li>
+            <li>Actividad: paseos cortos y juego moderado.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shih Tzu -->
+  <div class="modal fade" id="modalShihTzu" tabindex="-1" aria-labelledby="modalShihTzuLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modalShihTzuLabel" class="modal-title">Shih Tzu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body text-start">
+          <ul>
+            <li>Origen: Tíbet / China.</li>
+            <li>Peso: 4–7 kg. Longevidad: 10–16 años.</li>
+            <li>Carácter: cariñoso, sociable, juguetón.</li>
+            <li>Cuidados: pelo largo—baños y cepillado frecuente.</li>
+            <li>Ideal para: apartamentos y familias con niños.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pomerania -->
+  <div class="modal fade" id="modalPomerania" tabindex="-1" aria-labelledby="modalPomeraniaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modalPomeraniaLabel" class="modal-title">Pomerania</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body text-start">
+          <ul>
+            <li>Otros nombres: Spitz enano.</li>
+            <li>Peso: 1.5–3 kg. Longevidad: 12–16 años.</li>
+            <li>Carácter: alegre, curioso, activo.</li>
+            <li>Cuidados: cepillado frecuente; muda estacional.</li>
+            <li>Vigilancia: alerta pese a su tamaño.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white mt-5 p-4 text-center">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>APP SYSTEM</h5>
+        <p>Ayuda, charlas<br>Mensajes</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Ejercicios</h5>
+        <p>Paseos diarios<br>Juegos dentro de casa<br>Juegos de olfato</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Contacto</h5>
+        <p>Facebook<br>Instagram</p>
+      </div>
+    </div>
+    <p class="mt-3">© Copyright - All rights reserved 2025</p>
+  </footer>
+
+</div>
+{% endblock %}

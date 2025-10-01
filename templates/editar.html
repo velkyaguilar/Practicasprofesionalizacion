@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Editar Mascota {% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <h2>Editar Mascota</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="nombre" class="form-control" value="{{ mascota[1] }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Especie</label>
+            <input type="text" name="especie" class="form-control" value="{{ mascota[2] }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Edad</label>
+            <input type="number" name="edad" class="form-control" value="{{ mascota[3] }}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a href="{{ url_for('listar_mascotas') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

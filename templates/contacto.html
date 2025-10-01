@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Contacto</h2>
+                    <p class="text-center mb-4">¿Tienes preguntas o sugerencias? Escríbenos y te responderemos lo antes posible.</p>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-info">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <p><strong>También puedes contactarnos en:</strong></p>
+                <p>
+                    <i class="bi bi-envelope"></i> contacto@ejemplo.com<br>
+                    <i class="bi bi-telephone"></i> +34 123 456 789
+                </p>
+                <p>
+                    <a href="https://facebook.com" class="btn btn-outline-primary btn-sm mx-1" target="_blank"><i class="bi bi-facebook"></i> Facebook</a>
+                    <a href="https://twitter.com" class="btn btn-outline-info btn-sm mx-1" target="_blank"><i class="bi bi-twitter"></i> Twitter</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<h2>Contacto</h2>
+<p>¿Tienes preguntas o sugerencias? Escríbenos.</p>
+<form method="post">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre">
+    </div>
+    <div class="mb-3">
+        <label for="mensaje" class="form-label">Mensaje</label>
+        <textarea class="form-control" id="mensaje" name="mensaje" rows="4"></textarea>
+    </div>
+    <button type="submit" class="btn btn-info">Enviar</button>
+</form>
+{% endblock %}
