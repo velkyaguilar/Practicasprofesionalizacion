@@ -1,22 +1,28 @@
-{% extends "layout.html" %}
+{% extends 'badmin.html' %}
+{% block title %}listar{% endblock %}
+
 {% block body %}
 <h2>Lista de Mascotas</h2>
 <table class="table table-striped">
     <thead>
-        <tr><th>ID</th><th>Nombre</th><th>Especie</th><th>Edad</th></tr>
+        <tr>
+            <th>id_persona</th>
+            <th>nombre</th>
+            <th>gmail</th>
+            <th>contraseña</th>
+        </tr>
     </thead>
     <tbody>
         {% for m in mascotas %}
         <tr>
-            <td>{{ m.id }}</td>
+            <td>{{ m.id_persona }}</td>
             <td>{{ m.nombre }}</td>
-            <td>{{ m.especie }}</td>
-            <td>{{ m.edad }}</td>
+            <td>{{ m.gmail }}</td>
+            <td>{{ m.contraseña }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<a href="{{ url_for('mascotas_agregar') }}" class="btn btn-success">Agregar Nueva Mascota</a>
 {% endblock %}
 
 

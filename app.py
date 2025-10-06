@@ -10,7 +10,7 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'información'
+app.config['MYSQL_DB'] = 'informacion'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
@@ -66,9 +66,13 @@ def mascotas_index():
 def registro_adoptante():
     return render_template('adoptantes/registro.html')
 
-@app.route('/registro/perro')
+@app.route('/perro')
 def registro_perro():
     return render_template('mascotas/registro.html')
+
+@app.route('/regisAdop')
+def regisAdop():
+    return render_template('regisAdop.html')
 
 @app.route('/lista/perros')
 def lista_perros():
