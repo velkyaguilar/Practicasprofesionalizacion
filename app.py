@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_mysqldb import MySQL
 from pprint import pprint   
 
@@ -6,11 +6,12 @@ app = Flask(__name__)
 app.secret_key = 'appsecretkey'  # Clave para sesiones
 
 # Configuración de MySQL
+# Configuración de MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'informacion'
+app.config['MYSQL_PASSWORD'] = '1234'
+app.config['MYSQL_DB'] = 'informacion1'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
@@ -42,7 +43,14 @@ def login():
             return render_template('login.html', error='Usuario o contraseña incorrectos')
     return render_template('login.html')
 
-
+# Listar usuarios
+@app.route('/listar')
+def listar():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM persona")
+    usuarios = cur.fetchall()
+    cur.close()
+    return render_template("listar.html", usuarios=usuarios) 
 
 # LOGOUT
 @app.route('/logout')
@@ -50,47 +58,144 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-@app.route('/adoptantes')
-def adoptantes_index():
-    return render_template('adoptantes/index.html')
+# RUTAS PARA USUARIOS (CRUD)
+@app.route('/listarUsuario', methods=['GET', 'POST'])
+def listarUsuario():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        email = request.form.get('email')
+        password = request.form.get('password')
 
-@app.route('/reportes')
-def reportes_index():
-    return render_template('reportes/index.html')
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            "INSERT INTO usuario (nombre, email, password, id_rol) VALUES (%s, %s, %s, '2')",
+            (nombre, email, password)
+        )
+        mysql.connection.commit()
+        cursor.close()
 
-@app.route('/mascotas')
-def mascotas_index():
-    return render_template('mascotas/index.html')
+        return redirect(url_for('listarUsuario'))
 
-@app.route('/registro/adoptante')
-def registro_adoptante():
-    return render_template('adoptantes/registro.html')
+    # GET: mostrar lista de usuarios
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id, nombre, email, password FROM usuario ORDER BY id ASC")
+    listarUsuarios = cursor.fetchall()
+    cursor.close()
 
-@app.route('/perro')
-def registro_perro():
-    return render_template('mascotas/registro.html')
+    return render_template('listarUsuario.html', usuarios=listarUsuarios)
 
-@app.route('/regisAdop')
-def regisAdop():
-    return render_template('regisAdop.html')
+@app.route('/eliminar/<int:id>', methods=['DELETE'])
+def eliminar(id):
+    cursor = mysql.connection.cursor()
+    cursor.execute("DELETE FROM usuario WHERE id = %s", (id,))
+    mysql.connection.commit()
+    cursor.close()
+    return jsonify({'success': True, 'message': 'Usuario eliminado correctamente'})
 
-@app.route('/lista/perros')
-def lista_perros():
-    return render_template('mascotas/lista.html')
+@app.route('/updateUsuario', methods=['POST'])
+def updateUsuario():
+    try:
+        id = request.form['id']
+        nombre = request.form['nombre'] 
+        email = request.form['email']
+        password = request.form['password']
 
-@app.route('/mascotas')
-def mascotas_listar():
-    return render_template('mascotas_listar.html')
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            "UPDATE usuario SET nombre = %s, email = %s, password = %s WHERE id = %s",
+            (nombre, email, password, id)
+        )
+        mysql.connection.commit()
+        cursor.close()
 
-@app.route('/mascotas/agregar')
-def mascotas_agregar():
-    return render_template('mascotas_agregar.html')
+        return jsonify({
+            'success': True,
+            'message': 'Usuario actualizado correctamente'
+        })
 
+    except Exception as e:
+        print("Error al actualizar:", e)
+        return jsonify({
+            'success': False,
+            'message': 'Error interno al actualizar'
+        })
 
-# REGISTRO - Muestra el formulario
-@app.route('/registro')
+# RUTAS PARA ADOPTANTES (CRUD)
+@app.route('/registro', methods=['GET', 'POST'])
 def registro():
-    return render_template('registro.html')
+    if request.method == 'POST':
+        # Agregar nuevo adoptante
+        nombre = request.form['nombre']
+        email = request.form['email']
+        raza = request.form.get('raza', '')
+        
+        try:
+            cursor = mysql.connection.cursor()
+            cursor.execute(
+                "INSERT INTO adoptante (nombre, email, raza) VALUES (%s, %s, %s)",
+                (nombre, email, raza)
+            )
+            mysql.connection.commit()
+            cursor.close()
+            
+            flash('Adoptante registrado exitosamente', 'success')
+            return redirect(url_for('registro'))
+            
+        except Exception as err:
+            flash(f'Error al registrar adoptante: {err}', 'error')
+            return redirect(url_for('registro'))
+    
+    else:
+        # GET: Mostrar lista de adoptantes
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM adoptante ORDER BY id_adoptante DESC")
+        adoptantes = cursor.fetchall()
+        cursor.close()
+        
+        # Convertir a lista de diccionarios para mayor compatibilidad
+        lista_adoptantes = []
+        for adoptante in adoptantes:
+            lista_adoptantes.append({
+                'id_adoptante': adoptante['id_adoptante'],
+                'nombre': adoptante['nombre'],
+                'email': adoptante['email'],
+                'raza': adoptante.get('raza', '')
+            })
+        
+        return render_template('registro.html', adoptantes=lista_adoptantes)
+
+@app.route('/updateAdoptante', methods=['POST'])
+def updateAdoptante():
+    try:
+        id_adoptante = request.form['id_adoptante']
+        nombre = request.form['nombre']
+        email = request.form['email']
+        raza = request.form.get('raza', '')
+        
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            "UPDATE adoptante SET nombre = %s, email = %s, raza = %s WHERE id_adoptante = %s",
+            (nombre, email, raza, id_adoptante)
+        )
+        mysql.connection.commit()
+        cursor.close()
+        
+        return jsonify({'success': True, 'message': 'Adoptante actualizado correctamente'})
+        
+    except Exception as err:
+        return jsonify({'success': False, 'message': f'Error al actualizar: {err}'})
+
+@app.route('/eliminar_adoptante/<int:id>', methods=['DELETE'])
+def eliminar_adoptante(id):
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute("DELETE FROM adoptante WHERE id_adoptante = %s", (id,))
+        mysql.connection.commit()
+        cursor.close()
+        
+        return jsonify({'success': True, 'message': 'Adoptante eliminado correctamente'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)})
 
 # CREAR USUARIO - Procesa el formulario
 @app.route('/crearusuario', methods=['POST'])
@@ -105,7 +210,6 @@ def crearusuario():
     cursor.close()
     return redirect(url_for('login'))
 
-
 # PÁGINAS DE INFORMACIÓN
 @app.route('/about')
 def about():
@@ -114,6 +218,46 @@ def about():
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+@app.route('/listarAdop', methods=['GET', 'POST'])
+def listarAdop():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        email = request.form.get('email')
+        raza = request.form.get('raza', '')
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(
+            "INSERT INTO adoptante (nombre, email, raza) VALUES (%s, %s, %s)",
+            (nombre, email, raza)
+        )
+        mysql.connection.commit()
+        cursor.close()
+        
+        flash('Adoptante registrado exitosamente', 'success')
+        return redirect(url_for('listarAdop'))
+
+    # GET: mostrar lista de adoptantes
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id_adoptante, nombre, email, raza FROM adoptante ORDER BY id_adoptante DESC")
+    adoptantes = cursor.fetchall()
+    cursor.close()
+
+    # Convertir a formato adecuado para DataTables
+    lista_adoptantes = []
+    for adoptante in adoptantes:
+        lista_adoptantes.append({
+            'id_adoptante': adoptante['id_adoptante'],
+            'nombre': adoptante['nombre'],
+            'email': adoptante['email'],
+            'raza': adoptante.get('raza', 'No especificada')
+        })
+
+    return render_template('listarAdop.html', adoptantes=lista_adoptantes)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
