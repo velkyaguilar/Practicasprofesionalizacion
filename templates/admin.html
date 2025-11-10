@@ -7,38 +7,42 @@
     <h2 class="text-center alert alert-danger py-4">Sistema de Gestión de Adopciones</h2>
 
     <div class="row text-center">
-        <!-- Perfil del Adoptante -->
+        <!-- Perfil del Administrador -->
         <div class="col-md-4 mb-3">
             <div class="card" style="background: linear-gradient(180deg, #355e3b, #7a9f7a, #f1eeda);">
                 <div class="row g-0">
                     <div class="col-md-8">
                         <div class="card-body text-white">
-                            <h5 class="card-title">Lista de usuarios</h5>
-                            <a href="{{ url_for('listarUsuario')}}" class="btn btn-outline-success">Ver Detalles</a>
+                            <h5 class="card-title">Perfil del Administrador</h5>
+                          
+                            <h3 class="display-6 fw-bold text-light">{{ total_usuarios }}</h3>
+                            <a href="{{ url_for('listarUsuario')}}" class="btn btn-outline-light mt-2">Ver Detalles</a>
                         </div>
                     </div>
                     <div class="col-md-4 align-content-center">
                         <img src="{{ url_for('static', filename='img/personas.png') }}" class="img-fluid rounded-start"
-                            alt="Adoptante">
+                            alt="Usuarios">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Registrar Perros -->
+        <!-- Registrar Adopción -->
         <div class="col-md-4 mb-3">
             <div class="card" style="background: linear-gradient(180deg, #042bf1,#367cd9,#ffffff);">
                 <div class="row g-0">
                     <div class="col-md-8">
                         <div class="card-body text-white">
-                            <h5 class="card-title">Registrar de adopción</h5>
-                            <a href="{{ url_for('registro') }}" class="btn btn-outline-success">Ver Detalles</a>
+                            <h5 class="card-title">Registrar Adopción</h5>
+                           
+                            <h3 class="display-6 fw-bold text-light">{{ total_adopciones }}</h3>
+                            <a href="{{ url_for('registro') }}" class="btn btn-outline-light mt-2">Registrar Nueva</a>
                         </div>
                     </div>
                     <div class="col-md-4 align-content-center">
                         <a href="{{ url_for('registro') }}">
                             <img src="{{ url_for('static', filename='img/registrarse.png') }}"
-                                class="img-fluid rounded-start" alt="Registrar Perro">
+                                class="img-fluid rounded-start" alt="Registrar Adopción">
                         </a>
                     </div>
                 </div>
@@ -51,8 +55,11 @@
                 <div class="row g-0">
                     <div class="col-md-8">
                         <div class="card-body text-white">
-                            <h5 class="card-title">Lista de adopción</h5>
-                            <a href="{{ url_for('listarAdop') }}" class="btn btn-outline-success">Ver Detalles</a>
+                            <h5 class="card-title">Lista de Adopciones</h5>
+                          
+                        
+                            <h3 class="display-6 fw-bold text-light">{{ total_adopciones }}</h3>
+                            <a href="{{ url_for('listarAdop') }}" class="btn btn-outline-light mt-2">Ver Lista</a>
                         </div>
                     </div>
                     <div class="col-md-4 align-content-center">

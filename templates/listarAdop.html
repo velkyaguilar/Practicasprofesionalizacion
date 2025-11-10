@@ -39,6 +39,7 @@ Listar de Adoptantes
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Raza</th>
+                                <th scope="col">Fecha de Adopción</th>
                                 <th scope="col" class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -49,6 +50,7 @@ Listar de Adoptantes
                                 <td>{{ adoptante['nombre'] }}</td>
                                 <td>{{ adoptante['email'] }}</td>
                                 <td>{{ adoptante['raza'] or 'No especificada' }}</td>
+                                <td>{{ adoptante['fecha_adopcion'] }}</td>
                                 <td class="text-center">
                                     
                                         <button type="button" class="btn btn-success btn-sm edit-adoptante-btn"
@@ -103,6 +105,10 @@ Listar de Adoptantes
                                     id="raza{{ adoptante.id_adoptante }}" value="{{ adoptante.raza or '' }}"
                                     placeholder="Raza de la mascota">
                                 <label for="raza{{ adoptante.id_adoptante }}">Raza de la mascota</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" name="fecha_adopcion" id="fecha_adopcion{{ adoptante.id_adoptante }}" value="{{ adoptante.fecha_adopcion }}" placeholder="Fecha de Adopción">
+                                <label for="fecha_adopcion{{ adoptante.id_adoptante }}">Fecha de Adopción</label>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
